@@ -1,7 +1,7 @@
 library(Rcpp)
 library(tidyverse)
 library(gplots)
-source("plotfunctions.R") 
+source("plotfunctions.R")
 
 starttime=Sys.time()
 
@@ -10,22 +10,22 @@ params <- list()
 params <- within(params, {
 
   SIMTIME=300
-  iperiod=5.0; 
+  iperiod=5.0;
   load("data/betamat.Rdata")
   load("data/Npop.Rdata")
   years=read.csv("data/yearnumbers1.csv")
   nages=length(Npop)
-  
+
   gam_p=1/2;
   beta=betamat/(iperiod+1/gam_p)
   gamma=1/iperiod;  sigma=1/(3.2);  gam_a=1/(iperiod+1/gam_p); gam_h=1/3; gam_q=1/14 ##recovery rates
   testrate=1/2; testrate_a=rep(0,nages); testrate_a2=0; testrate_a3=0; ##testing parameters
-  eps=0.3; eps_q=0.5 ##
+  eps=0.3; eps_q=0.5; eps_h = 0.2 ##
   h=0.002 #hospitalisation rate
   f=0.75 #fraction asymptomatic
   mrate=0.038 #mortality rate
   backgroundrate = 1e-4 #background infection rate
-  
+
   ## initial conditions, list within list
   init <- within(list(), {
     S=Npop
